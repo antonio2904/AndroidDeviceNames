@@ -27,9 +27,6 @@ android {
   }
 }
 
-group = "io.github.antonio2904"
-version = "2.1.4"
-
 dependencies {
   implementation deps.androidx.annotations
 }
