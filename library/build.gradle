@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
   compileSdkVersion buildConfig.compileSdk
@@ -10,15 +11,24 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
   }
 
   testOptions {
     unitTests.returnDefaultValues = true
   }
-  namespace 'com.jaredrummler.android.device'
+  namespace = 'com.jaredrummler.android.device'
+
+  publishing {
+    singleVariant('release') {
+      withSourcesJar()
+    }
+  }
 }
+
+group = "io.github.antonio2904"
+version = "2.1.4"
 
 dependencies {
   implementation deps.androidx.annotations

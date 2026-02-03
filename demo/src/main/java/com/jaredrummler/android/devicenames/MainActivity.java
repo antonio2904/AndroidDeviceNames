@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         result.setText(Html.fromHtml("<b>Codename</b>: " + info.codename + "<br>"
             + "<b>Model</b>: " + info.model + "<br>"
-            + "<b>Manufacturer</b>: " + info.manufacturer + "<br>"
             + "<b>Name</b>: " + info.getName()));
       }
     });
