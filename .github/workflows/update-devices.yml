@@ -127,7 +127,7 @@ jobs:
           gpg --batch --export-secret-keys --armor ${{ secrets.SIGNING_KEY_ID }} > /home/runner/.gnupg/secring.gpg
           
           # Publish to Maven Central
-          ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --stacktrace
+          ./gradlew -Psigning.secretKeyRingFile=/home/runner/.gnupg/secring.gpg -Psigning.password=${{ secrets.SIGNING_PASSWORD }} -Psigning.keyId=${{ secrets.SIGNING_KEY_ID }} publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --stacktrace
       
       - name: Create GitHub Release
         if: steps.check_changes.outputs.has_changes == 'true'
