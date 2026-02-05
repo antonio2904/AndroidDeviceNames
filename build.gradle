@@ -65,7 +65,7 @@ allprojects {
     mavenCentral()
   }
   group = "io.github.antonio2904"
-  version = "2.1.5-20260204"
+  version = "2.1.5-20260205"
 }
 
 apply plugin: 'io.github.gradle-nexus.publish-plugin'
