@@ -126,17 +126,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ steps.base_version.outputs.version }}-${{ steps.date.outputs.date }}
-          release_name: Device Database Update ${{ steps.date.outputs.date }}
+          release_name: ${{ steps.base_version.outputs.version }}-${{ steps.date.outputs.date }}
           body: |
             ## Device Database Update
             
             Updated device database from Google's supported devices list.
             
-            **Changes:**
-            - Database VERSION: ${{ steps.db_version.outputs.current }} → ${{ steps.db_version.outputs.new }}
-            - Library version: ${{ steps.base_version.outputs.version }}-${{ steps.date.outputs.date }}
-            
-            **Maven Dependency:**
+            **Gradle Dependency:**
             ```gradle
             implementation 'io.github.antonio2904:android-device-names:${{ steps.base_version.outputs.version }}-${{ steps.date.outputs.date }}'
             ```

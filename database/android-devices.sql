@@ -6,7 +6,7 @@ name TEXT,
 codename TEXT,
 model TEXT
 );
-INSERT INTO devices VALUES(1,'1&1 Puck','diw362_1u1','DIW362P 1U1');
+INSERT INTO devices VALUES(1,'1&1 Puc','diw362_1u1','DIW362P 1U1');
 INSERT INTO devices VALUES(2,'1&1 TV BOX','DIW377-1u1','DIW377 1u1');
 INSERT INTO devices VALUES(3,'1&1 TV Box','diw387_1u1','DIW387 1U1');
 INSERT INTO devices VALUES(4,'AEOP525','AEOP525','AEOP525');
