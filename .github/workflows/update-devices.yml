@@ -11,6 +11,8 @@ on:
 jobs:
   update-database:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout repository
@@ -121,12 +123,10 @@ jobs:
       
       - name: Create GitHub Release
         if: steps.check_changes.outputs.has_changes == 'true' && steps.publish.outcome == 'success'
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: v${{ steps.base_version.outputs.version }}-${{ steps.date.outputs.date }}
-          release_name: ${{ steps.base_version.outputs.version }}-${{ steps.date.outputs.date }}
+          tag: v${{ steps.base_version.outputs.version }}-${{ steps.date.outputs.date }}
+          name: ${{ steps.base_version.outputs.version }}-${{ steps.date.outputs.date }}
           body: |
             ## Device Database Update
             
