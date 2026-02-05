@@ -94,18 +94,6 @@ jobs:
           # Update the Maven dependency version in README
           sed -i "s/io.github.antonio2904:android-device-names:[^')]\+/io.github.antonio2904:android-device-names:$NEW_VERSION/" README.md
       
-      - name: Commit changes
-        if: steps.check_changes.outputs.has_changes == 'true'
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add build.gradle
-          git add library/src/main/java/com/jaredrummler/android/device/DeviceDatabase.java
-          git add README.md
-          git add database/
-          git commit -m "chore: Update device database (${{ steps.date.outputs.date }})" -m "- Database VERSION: ${{ steps.db_version.outputs.current }} → ${{ steps.db_version.outputs.new }}" -m "- Library version: ${{ steps.base_version.outputs.version }}-${{ steps.date.outputs.date }}"
-          git push
-      
       - name: Import GPG key
         if: steps.check_changes.outputs.has_changes == 'true'
         uses: crazy-max/ghaction-import-gpg@v6
@@ -114,6 +102,7 @@ jobs:
           passphrase: ${{ secrets.SIGNING_PASSWORD }}
       
       - name: Build and publish to Maven Central
+        id: publish
         if: steps.check_changes.outputs.has_changes == 'true'
         env:
           ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONATYPE_USERNAME }}
@@ -128,8 +117,21 @@ jobs:
           # Publish to Maven Central using in-memory signing
           ./gradlew -Psigning.key="$(cat ${KEY_FILE})" publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --stacktrace
       
+      - name: Commit changes
+        if: steps.check_changes.outputs.has_changes == 'true' && steps.publish.outcome == 'success'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add build.gradle
+          git add library/src/main/assets/android-devices.db
+          git add library/src/main/java/com/jaredrummler/android/device/DeviceDatabase.java
+          git add README.md
+          git add database/
+          git commit -m "chore: Update device database (${{ steps.date.outputs.date }})" -m "- Database VERSION: ${{ steps.db_version.outputs.current }} → ${{ steps.db_version.outputs.new }}" -m "- Library version: ${{ steps.base_version.outputs.version }}-${{ steps.date.outputs.date }}"
+          git push
+      
       - name: Create GitHub Release
-        if: steps.check_changes.outputs.has_changes == 'true'
+        if: steps.check_changes.outputs.has_changes == 'true' && steps.publish.outcome == 'success'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
