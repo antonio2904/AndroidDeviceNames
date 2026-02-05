@@ -118,15 +118,15 @@ jobs:
         env:
           ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONATYPE_USERNAME }}
           ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.SONATYPE_PASSWORD }}
-          SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
-          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-          SIGNING_SECRET_KEY_RING_FILE: /home/runner/.gnupg/secring.gpg
+          ORG_GRADLE_PROJECT_signingKeyId: ${{ secrets.SIGNING_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
         run: |
-          # Export GPG key to the location expected by Gradle
-          gpg --batch --export-secret-keys --armor ${{ secrets.SIGNING_KEY_ID }} > /home/runner/.gnupg/secring.gpg
+          # Export key from GPG keyring (works with both ASCII and base64-encoded keys)
+          KEY_FILE="${HOME}/.gnupg/signing-key.asc"
+          gpg --batch --armor --export-secret-keys ${{ secrets.SIGNING_KEY_ID }} > "${KEY_FILE}"
           
-          # Publish to Maven Central
-          ./gradlew -Psigning.secretKeyRingFile=/home/runner/.gnupg/secring.gpg -Psigning.password=${{ secrets.SIGNING_PASSWORD }} -Psigning.keyId=${{ secrets.SIGNING_KEY_ID }} publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --stacktrace
+          # Publish to Maven Central using in-memory signing
+          ./gradlew -Psigning.key="$(cat ${KEY_FILE})" publishToSonatype closeAndReleaseSonatypeStagingRepository --no-daemon --stacktrace
       
       - name: Create GitHub Release
         if: steps.check_changes.outputs.has_changes == 'true'
