@@ -136,5 +136,6 @@ jobs:
             ```gradle
             implementation 'io.github.antonio2904:android-device-names:${{ steps.base_version.outputs.version }}-${{ steps.date.outputs.date }}'
             ```
+          artifacts: "database/android-devices.db"
           draft: false
           prerelease: false
