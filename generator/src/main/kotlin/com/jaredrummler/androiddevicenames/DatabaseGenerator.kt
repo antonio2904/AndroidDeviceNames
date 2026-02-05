@@ -16,20 +16,13 @@
 
 package com.jaredrummler.androiddevicenames
 
-import java.io.BufferedInputStream
-import java.io.BufferedOutputStream
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 import java.sql.DriverManager
 import java.sql.SQLException
-import java.util.zip.ZipEntry
-import java.util.zip.ZipOutputStream
 
 class DatabaseGenerator(
     private val devices: List<Device>,
-    private val databasePath: String = "database/android-devices.db",
-    private val zipPath: String = "database/android-devices.zip"
+    private val databasePath: String = "database/android-devices.db"
 ) {
 
     fun generate() {
@@ -63,9 +56,9 @@ class DatabaseGenerator(
                 databasePath,
                 ".dump"
             ).redirectOutput(File(sqlDumpPath))
-            .redirectError(ProcessBuilder.Redirect.INHERIT)
-            .start()
-            
+                .redirectError(ProcessBuilder.Redirect.INHERIT)
+                .start()
+
             process.waitFor()
             println("SQL dump generated at: $sqlDumpPath")
         } catch (e: Exception) {
