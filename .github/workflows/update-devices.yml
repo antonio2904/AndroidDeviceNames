@@ -36,13 +36,13 @@ jobs:
         id: check_changes
         run: |
           # Check if the newly generated database differs from the committed one
-          if git diff --quiet database/android-devices.db; then
+          if git diff --quiet database/android-devices.sql; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
             echo "No changes detected in database"
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT
             echo "Database changes detected"
-            git diff --stat database/android-devices.db
+            git diff --stat database/android-devices.sql
           fi
       
       - name: Copy database to library assets

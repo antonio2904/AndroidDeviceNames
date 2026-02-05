@@ -51,17 +51,24 @@ class DatabaseGenerator(
                 statement.executeBatch()
                 conn.close()
             }
-
-            ZipOutputStream(BufferedOutputStream(FileOutputStream(zipPath))).use { out ->
-                FileInputStream(databasePath).use { fi ->
-                    BufferedInputStream(fi).use { origin ->
-                        val entry = ZipEntry(databasePath)
-                        out.putNextEntry(entry)
-                        origin.copyTo(out, 1024)
-                    }
-                }
-            }
         } catch (e: SQLException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun generateSqlDump(sqlDumpPath: String = "database/android-devices.sql") {
+        try {
+            val process = ProcessBuilder(
+                "sqlite3",
+                databasePath,
+                ".dump"
+            ).redirectOutput(File(sqlDumpPath))
+            .redirectError(ProcessBuilder.Redirect.INHERIT)
+            .start()
+            
+            process.waitFor()
+            println("SQL dump generated at: $sqlDumpPath")
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
