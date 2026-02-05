@@ -47,6 +47,15 @@ afterEvaluate {
     }
 
     signing {
+        // Support in-memory PGP signing
+        def signingKey = findProperty("signingKey")
+        def signingPassword = findProperty("signingPassword")
+        def signingKeyId = findProperty("signingKeyId")
+        
+        if (signingKey && signingPassword) {
+            useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+        }
+        
         sign publishing.publications.release
     }
 }

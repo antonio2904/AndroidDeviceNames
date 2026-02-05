@@ -16,20 +16,13 @@
 
 package com.jaredrummler.androiddevicenames
 
-import java.io.BufferedInputStream
-import java.io.BufferedOutputStream
 import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 import java.sql.DriverManager
 import java.sql.SQLException
-import java.util.zip.ZipEntry
-import java.util.zip.ZipOutputStream
 
 class DatabaseGenerator(
     private val devices: List<Device>,
-    private val databasePath: String = "database/android-devices.db",
-    private val zipPath: String = "database/android-devices.zip"
+    private val databasePath: String = "database/android-devices.db"
 ) {
 
     fun generate() {
@@ -51,17 +44,24 @@ class DatabaseGenerator(
                 statement.executeBatch()
                 conn.close()
             }
-
-            ZipOutputStream(BufferedOutputStream(FileOutputStream(zipPath))).use { out ->
-                FileInputStream(databasePath).use { fi ->
-                    BufferedInputStream(fi).use { origin ->
-                        val entry = ZipEntry(databasePath)
-                        out.putNextEntry(entry)
-                        origin.copyTo(out, 1024)
-                    }
-                }
-            }
         } catch (e: SQLException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun generateSqlDump(sqlDumpPath: String = "database/android-devices.sql") {
+        try {
+            val process = ProcessBuilder(
+                "sqlite3",
+                databasePath,
+                ".dump"
+            ).redirectOutput(File(sqlDumpPath))
+                .redirectError(ProcessBuilder.Redirect.INHERIT)
+                .start()
+
+            process.waitFor()
+            println("SQL dump generated at: $sqlDumpPath")
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }

@@ -2,9 +2,9 @@ apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
 dependencies {
-  implementation deps.kotlin.stdlib.jdk
-  implementation deps.gson
-  implementation deps.sqlite
+    implementation deps.kotlin.stdlib.jdk
+    implementation deps.gson
+    implementation deps.sqlite
 }
 
 java {
@@ -12,40 +12,40 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-task generateDeviceDatabase(type: JavaExec) {
-  description = 'Generate device database from Google\'s supported devices CSV'
-  group = 'build'
-  
-  classpath = sourceSets.main.runtimeClasspath
-  mainClass = 'com.jaredrummler.androiddevicenames.Generator'
-  workingDir = project.rootDir
-  
-  doLast {
-    def sourceDb = file("${project.rootDir}/database/android-devices.db")
-    if (!sourceDb.exists()) {
-      throw new GradleException("Generated database not found at ${sourceDb.absolutePath}")
+tasks.register('generateDeviceDatabase', JavaExec) {
+    description = 'Generate device database from Google\'s supported devices CSV'
+    group = 'build'
+
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.jaredrummler.androiddevicenames.Generator'
+    workingDir = project.rootDir
+
+    doLast {
+        def sourceDb = file("${project.rootDir}/database/android-devices.db")
+        if (!sourceDb.exists()) {
+            throw new GradleException("Generated database not found at ${sourceDb.absolutePath}")
+        }
+        println "✅ Database generated at ${sourceDb.absolutePath}"
     }
-    println "✅ Database generated at ${sourceDb.absolutePath}"
-  }
 }
 
-task copyDatabaseToAssets {
-  description = 'Copy generated database to library assets'
-  group = 'build'
-  
-  doLast {
-    def sourceDb = file("${project.rootDir}/database/android-devices.db")
-    def targetDb = file("${project.rootDir}/library/src/main/assets/android-devices.db")
-    
-    if (sourceDb.exists()) {
-      targetDb.parentFile.mkdirs()
-      copy {
-        from sourceDb
-        into targetDb.parent
-      }
-      println "Database copied to ${targetDb.absolutePath}"
-    } else {
-      throw new GradleException("Source database not found at ${sourceDb.absolutePath}")
+tasks.register('copyDatabaseToAssets') {
+    description = 'Copy generated database to library assets'
+    group = 'build'
+
+    doLast {
+        def sourceDb = file("${project.rootDir}/database/android-devices.db")
+        def targetDb = file("${project.rootDir}/library/src/main/assets/android-devices.db")
+
+        if (sourceDb.exists()) {
+            targetDb.parentFile.mkdirs()
+            copy {
+                from sourceDb
+                into targetDb.parent
+            }
+            println "Database copied to ${targetDb.absolutePath}"
+        } else {
+            throw new GradleException("Source database not found at ${sourceDb.absolutePath}")
+        }
     }
-  }
 }

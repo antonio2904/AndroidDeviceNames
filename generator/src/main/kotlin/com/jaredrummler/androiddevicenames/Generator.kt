@@ -21,7 +21,9 @@ class Generator {
     @JvmStatic
     fun main(args: Array<String>) {
       // Get the devices supported by Google Play and create the database
-      DatabaseGenerator(Devices.get()).generate()
+      val dbg = DatabaseGenerator(Devices.get())
+      dbg.generate()
+      dbg.generateSqlDump()
     }
   }
 }
