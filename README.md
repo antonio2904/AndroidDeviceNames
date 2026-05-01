@@ -54,7 +54,7 @@ Download
 --------
 
 ```groovy
-implementation('io.github.antonio2904:android-device-names:2026.04.00') 
+implementation('io.github.antonio2904:android-device-names:2026.05.00') 
 ```
 
 
