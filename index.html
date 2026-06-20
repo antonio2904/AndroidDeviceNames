@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="AndroidDeviceNames - An actively maintained fork of jaredrummler/AndroidDeviceNames. Automated releases ensure the library is never abandoned." />
+  <title>AndroidDeviceNames – Actively Maintained Fork</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.7; }
+    header { background: #161b22; border-bottom: 1px solid #30363d; padding: 24px 32px; display: flex; align-items: center; gap: 12px; }
+    header svg { width: 32px; height: 32px; fill: #c9d1d9; }
+    header h1 { font-size: 1.4rem; color: #f0f6fc; }
+    .hero { padding: 60px 32px 40px; max-width: 800px; margin: 0 auto; text-align: center; }
+    .hero h2 { font-size: 2rem; color: #f0f6fc; margin-bottom: 16px; }
+    .hero p { font-size: 1.1rem; color: #8b949e; max-width: 600px; margin: 0 auto 32px; }
+    .badge { display: inline-block; background: #238636; color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 32px; }
+    .btn { display: inline-block; background: #238636; color: #fff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: background 0.2s; }
+    .btn:hover { background: #2ea043; }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 800px; margin: 40px auto; padding: 0 32px; }
+    .card { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 24px; }
+    .card h3 { color: #f0f6fc; margin-bottom: 10px; font-size: 1rem; }
+    .card p { color: #8b949e; font-size: 0.9rem; }
+    .code-block { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px 24px; max-width: 700px; margin: 32px auto; text-align: left; font-family: monospace; font-size: 0.95rem; color: #79c0ff; overflow-x: auto; }
+    .code-block span.comment { color: #8b949e; }
+    section { padding: 20px 32px 40px; max-width: 800px; margin: 0 auto; }
+    section h2 { color: #f0f6fc; font-size: 1.3rem; margin-bottom: 16px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+    footer { text-align: center; padding: 32px; color: #8b949e; font-size: 0.85rem; border-top: 1px solid #30363d; margin-top: 40px; }
+    footer a { color: #58a6ff; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+    0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+    -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+    .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+    -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27
+    .68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+    .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+    0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+  </svg>
+  <h1>antonio2904 / AndroidDeviceNames</h1>
+</header>
+
+<div class="hero">
+  <span class="badge">✅ Actively Maintained — Automated Releases</span>
+  <h2>AndroidDeviceNames</h2>
+  <p>A fork of <strong>jaredrummler/AndroidDeviceNames</strong> — a small Android library that converts device model names (like <code>SM-N910W8</code>) into human-readable names (like <em>Samsung Galaxy Note 4</em>). This fork adds <strong>automated releases</strong> so it will never get abandoned.</p>
+  <br/>
+  <a href="https://github.com/antonio2904/AndroidDeviceNames" class="btn">View on GitHub →</a>
+</div>
+
+<section>
+  <h2>Why this fork?</h2>
+  <div class="features">
+    <div class="card">
+      <h3>🤖 Automated Releases</h3>
+      <p>Releases are automated via CI/CD, so the library stays up-to-date without manual intervention.</p>
+    </div>
+    <div class="card">
+      <h3>🚫 Never Abandoned</h3>
+      <p>Unlike the original, this fork is designed to keep working long-term with no risk of going unmaintained.</p>
+    </div>
+    <div class="card">
+      <h3>📱 27,000+ Devices</h3>
+      <p>Supports over 27,000 Android devices based on Google's maintained device list.</p>
+    </div>
+  </div>
+</section>
+
+  <section>
+  <h2>Installation</h2>
+  <div class="code-block">
+    <span class="comment">// Add to your module's build.gradle</span><br/>
+    implementation '<span style="color:#a5d6ff">io.github.antonio2904:android-device-names:2026.06.00</span>'
+  </div>
+
+  <h2 style="margin-top:32px">Usage</h2>
+  <div class="code-block">
+    <span class="comment">// 1. Initialize once in your Application class</span><br/>
+    DeviceName.init(this);<br/><br/>
+    <span class="comment">// 2. Get current device name (UI thread safe)</span><br/>
+    String name = DeviceName.getDeviceName();<br/><br/>
+    <span class="comment">// 3. Get name by codename</span><br/>
+    DeviceName.getDeviceName("clark", "Unknown"); <span class="comment">// → "Moto X Style"</span><br/><br/>
+    <span class="comment">// 4. Async full database lookup</span><br/>
+    DeviceName.with(context).request((info, error) -> {<br/>
+    &nbsp;&nbsp;String marketName = info.marketName; <span class="comment">// e.g. "Galaxy S8+"</span><br/>
+    &nbsp;&nbsp;String model = info.model; <span class="comment">// e.g. "SM-G955W"</span><br/>
+    });
+  </div>
+</section>
+
+<footer>
+  Fork maintained by <a href="https://github.com/antonio2904">antonio2904</a> ·
+  Based on <a href="https://github.com/jaredrummler/AndroidDeviceNames">jaredrummler/AndroidDeviceNames</a> ·
+  Licensed under Apache 2.0
+</footer>
+
+</body>
+</html>
