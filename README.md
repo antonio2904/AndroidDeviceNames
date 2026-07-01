@@ -32,7 +32,7 @@ If you use **JitPack** to pull this fork, ensure you have the jitpack repository
 
 ```groovy
 dependencies {
-    implementation 'io.github.antonio2904:android-device-names:2026.06.00'
+    implementation 'io.github.antonio2904:android-device-names:2026.07.00'
 }
 ```
 ---
